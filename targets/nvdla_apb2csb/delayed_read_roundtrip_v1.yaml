@@ -1,0 +1,49 @@
+schema_version: "1.0"
+id: delayed_read_roundtrip_v1
+benchmark_id: nvdla_apb2csb
+description: Legal delayed APB read with a stalled request and delayed CSB response
+bound_cycles: 32
+events:
+  - id: apb_read_access
+    predicate: psel && penable && !pwrite
+  - id: request_stalled
+    predicate: csb2nvdla_valid && !csb2nvdla_ready
+    minimum_consecutive_cycles: 1
+  - id: request_accepted
+    predicate: csb2nvdla_valid && csb2nvdla_ready
+  - id: response_wait
+    predicate: psel && penable && !pready && !nvdla2csb_valid
+    minimum_consecutive_cycles: 1
+  - id: delayed_response
+    predicate: nvdla2csb_valid
+  - id: apb_completion
+    predicate: psel && penable && pready
+ordering:
+  - [apb_read_access, request_stalled]
+  - [request_stalled, request_accepted]
+  - [request_accepted, response_wait]
+  - [response_wait, delayed_response]
+  - [delayed_response, apb_completion]
+ordering_semantics: nondecreasing_cycles
+requirements:
+  - id: no_duplicate_request
+    description: No second read request is accepted while the first read is outstanding
+  - id: returned_data_matches
+    description: prdata equals the data carried by the single accepted CSB response
+assumptions:
+  - id: apb_enable_requires_select
+    description: penable implies psel
+  - id: apb_legal_phase
+    description: An access follows setup or continues a waiting access
+  - id: apb_wait_stability
+    description: Address, direction, and write data remain stable while waiting
+  - id: aligned_modeled_address
+    description: APB address is word aligned and inside the modeled range
+  - id: response_requires_outstanding_read
+    description: A CSB response occurs only while a read is outstanding
+  - id: one_response_per_read
+    description: Each accepted read produces at most one response pulse
+  - id: writes_have_no_read_response
+    description: Writes do not create read responses
+  - id: response_not_same_cycle
+    description: A read response does not coincide with request acceptance in this pilot

@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.venv/
+.tools/
+dist/
+build/
+*.egg-info/
+
+# Verification build products
+obj_dir/
+sim_build/
+work/
+*.vcd
+*.fst
+*.wlf
+coverage.dat
+*_coverage.dat
+*_coverage.info
+results.xml
+*_results.xml
+*.coverage
+
+# Formal build products and large run artifacts
+verification/**/formal/*/
+runs/*
+!runs/.gitkeep
+results/*
+!results/.gitkeep
+!results/**/
+!results/**/*.json
+!results/**/*.yw
+
+# Credentials and local configuration
+.env
+*.pem
+*.key
+*service-account*.json
+
+third_party/nvdla/.git/

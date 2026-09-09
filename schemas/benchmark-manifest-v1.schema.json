@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://proof2stim.dev/schemas/benchmark-manifest-v1.schema.json",
+  "title": "Proof2Stim benchmark manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "benchmark", "upstream", "rtl", "clock", "reset", "ports", "generated_signals", "formal", "targets"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "benchmark": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "display_name", "license"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "display_name": {"type": "string", "minLength": 1},
+        "license": {"type": "string", "minLength": 1}
+      }
+    },
+    "upstream": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "ref", "commit", "license_path", "license_sha256"],
+      "properties": {
+        "repository": {"type": "string", "format": "uri"},
+        "ref": {"type": "string", "minLength": 1},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "license_path": {"type": "string", "minLength": 1}
+        ,"license_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "rtl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["top", "sources", "parameters"],
+      "properties": {
+        "top": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_$]*$"},
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "sha256"],
+            "properties": {
+              "path": {"type": "string", "minLength": 1},
+              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+            }
+          }
+        },
+        "parameters": {"type": "object"}
+      }
+    },
+    "clock": {"$ref": "#/$defs/signalTiming"},
+    "reset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["signal", "active_level", "asynchronous", "minimum_cycles"],
+      "properties": {
+        "signal": {"type": "string"},
+        "active_level": {"enum": [0, 1]},
+        "asynchronous": {"type": "boolean"},
+        "minimum_cycles": {"type": "integer", "minimum": 1}
+      }
+    },
+    "ports": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inputs", "outputs"],
+      "properties": {
+        "inputs": {"$ref": "#/$defs/portMap"},
+        "outputs": {"$ref": "#/$defs/portMap"}
+      }
+    },
+    "generated_signals": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "formal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "depth", "timeout_seconds", "engine"],
+      "properties": {
+        "mode": {"enum": ["cover"]},
+        "depth": {"type": "integer", "minimum": 1},
+        "timeout_seconds": {"type": "integer", "minimum": 1},
+        "engine": {"type": "string", "minLength": 1}
+      }
+    },
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "specification"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "specification": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "signalTiming": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["signal", "period_ns"],
+      "properties": {
+        "signal": {"type": "string"},
+        "period_ns": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "portMap": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"type": "integer", "minimum": 1}
+    }
+  }
+}

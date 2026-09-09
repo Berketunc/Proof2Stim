@@ -1,0 +1,36 @@
+{
+  "accepted": true,
+  "artifacts": {
+    "baseline_result_sha256": "134a6eacdaff205d3fb8017062d4af4071c2f764a215b89ef1937f4004cccc4e",
+    "replay_result_sha256": "153a1f7d53fd6a675274ddf8230566b67e823549cdd509f65c6ec97420e772bb",
+    "stimulus_sha256": "607a362d90573c3b18f589c85bd5e601a7c4933e5a05bb9f97bd437352711871",
+    "witness_sha256": "b3f8da8472d026ee5f7d2cac6db1cf1ab0ff431cb3bf1f383c376f322707468d"
+  },
+  "benchmark_id": "nvdla_apb2csb",
+  "coverage_delta": {
+    "branch": {
+      "covered_delta": 1,
+      "percentage_point_delta": 25.0
+    },
+    "line": {
+      "covered_delta": 1,
+      "percentage_point_delta": 50.0
+    },
+    "toggle": {
+      "covered_delta": 50,
+      "percentage_point_delta": 13.16
+    }
+  },
+  "gates": {
+    "bounded_safety_passed": true,
+    "coverage_increased": true,
+    "data_checks_passed": true,
+    "formal_cover_passed": true,
+    "legality_passed": true,
+    "no_duplicate_request": true,
+    "simulation_passed": true,
+    "target_hit": true
+  },
+  "schema_version": "1.0",
+  "target_id": "delayed_read_roundtrip_v1"
+}

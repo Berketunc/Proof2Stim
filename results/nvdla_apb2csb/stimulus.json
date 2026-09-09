@@ -1,0 +1,273 @@
+{
+  "cycles": [
+    {
+      "assignments": {
+        "csb2nvdla_ready": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        },
+        "nvdla2csb_data": {
+          "known_mask": "0xffffffff",
+          "value": "0x00000000"
+        },
+        "nvdla2csb_valid": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        },
+        "paddr": {
+          "known_mask": "0xffffffff",
+          "value": "0x00000000"
+        },
+        "penable": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        },
+        "psel": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "pwdata": {
+          "known_mask": "0xffffffff",
+          "value": "0x00000000"
+        },
+        "pwrite": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        }
+      },
+      "cycle": 0
+    },
+    {
+      "assignments": {
+        "csb2nvdla_ready": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        },
+        "nvdla2csb_data": {
+          "known_mask": "0xffffffff",
+          "value": "0x00000000"
+        },
+        "nvdla2csb_valid": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        },
+        "paddr": {
+          "known_mask": "0xffffffff",
+          "value": "0x0003fffc"
+        },
+        "penable": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "psel": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "pwdata": {
+          "known_mask": "0xffffffff",
+          "value": "0xffffffff"
+        },
+        "pwrite": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        }
+      },
+      "cycle": 1
+    },
+    {
+      "assignments": {
+        "csb2nvdla_ready": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "nvdla2csb_data": {
+          "known_mask": "0xffffffff",
+          "value": "0x00000000"
+        },
+        "nvdla2csb_valid": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        },
+        "paddr": {
+          "known_mask": "0xffffffff",
+          "value": "0x0003fffc"
+        },
+        "penable": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "psel": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "pwdata": {
+          "known_mask": "0xffffffff",
+          "value": "0xffffffff"
+        },
+        "pwrite": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        }
+      },
+      "cycle": 2
+    },
+    {
+      "assignments": {
+        "csb2nvdla_ready": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        },
+        "nvdla2csb_data": {
+          "known_mask": "0xffffffff",
+          "value": "0x00000000"
+        },
+        "nvdla2csb_valid": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        },
+        "paddr": {
+          "known_mask": "0xffffffff",
+          "value": "0x0003fffc"
+        },
+        "penable": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "psel": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "pwdata": {
+          "known_mask": "0xffffffff",
+          "value": "0xffffffff"
+        },
+        "pwrite": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        }
+      },
+      "cycle": 3
+    },
+    {
+      "assignments": {
+        "csb2nvdla_ready": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "nvdla2csb_data": {
+          "known_mask": "0xffffffff",
+          "value": "0x00000000"
+        },
+        "nvdla2csb_valid": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "paddr": {
+          "known_mask": "0xffffffff",
+          "value": "0x0003fffc"
+        },
+        "penable": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "psel": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "pwdata": {
+          "known_mask": "0xffffffff",
+          "value": "0xffffffff"
+        },
+        "pwrite": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        }
+      },
+      "cycle": 4
+    },
+    {
+      "assignments": {
+        "csb2nvdla_ready": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "nvdla2csb_data": {
+          "known_mask": "0xffffffff",
+          "value": "0x00000000"
+        },
+        "nvdla2csb_valid": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        },
+        "paddr": {
+          "known_mask": "0xffffffff",
+          "value": "0x0003fffc"
+        },
+        "penable": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        },
+        "psel": {
+          "known_mask": "0x1",
+          "value": "0x1"
+        },
+        "pwdata": {
+          "known_mask": "0xffffffff",
+          "value": "0xffffffff"
+        },
+        "pwrite": {
+          "known_mask": "0x1",
+          "value": "0x0"
+        }
+      },
+      "cycle": 5
+    }
+  ],
+  "input_signals": [
+    {
+      "name": "csb2nvdla_ready",
+      "width": 1
+    },
+    {
+      "name": "nvdla2csb_data",
+      "width": 32
+    },
+    {
+      "name": "nvdla2csb_valid",
+      "width": 1
+    },
+    {
+      "name": "paddr",
+      "width": 32
+    },
+    {
+      "name": "penable",
+      "width": 1
+    },
+    {
+      "name": "psel",
+      "width": 1
+    },
+    {
+      "name": "pwdata",
+      "width": 32
+    },
+    {
+      "name": "pwrite",
+      "width": 1
+    }
+  ],
+  "metadata": {
+    "benchmark_id": "nvdla_apb2csb",
+    "formal_depth": 32,
+    "reset_steps_omitted": 1,
+    "rtl_commit": "8e06b1b9d85aab65b40d43d08eec5ea4681ff715",
+    "rtl_sha256": "7b82c8b364ce06b451d2893f9271f67006513daae46ef7fcc1fd473a1abf0e3d",
+    "solver": "boolector-3.2.4",
+    "source_witness_sha256": "b3f8da8472d026ee5f7d2cac6db1cf1ab0ff431cb3bf1f383c376f322707468d",
+    "target_id": "delayed_read_roundtrip_v1",
+    "target_spec_sha256": "ec45ec0abf5ccc18c3fb12c6249e79034ded7ca9761313836f05fea80504c6ed",
+    "unknown_policy": "zero_fill_preserve_mask"
+  },
+  "schema_version": "1.0"
+}

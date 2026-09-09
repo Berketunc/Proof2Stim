@@ -1,0 +1,11 @@
+{
+  "accepted_reads": 1,
+  "data_checks_passed": true,
+  "duplicate_request": false,
+  "legality_errors": [],
+  "legality_passed": true,
+  "outstanding_read_at_end": false,
+  "responses": 1,
+  "schema_version": "1.0",
+  "target_hit": true
+}

@@ -1,0 +1,33 @@
+{
+  "format": "Yosys Witness Trace",
+  "generator": "smtbmc",
+  "clocks": [],
+  "signals": [
+    {"path": ["\\csb2nvdla_ready"], "width": 1, "offset": 0, "init_only": false},
+    {"path": ["\\nvdla2csb_data"], "width": 32, "offset": 0, "init_only": false},
+    {"path": ["\\nvdla2csb_valid"], "width": 1, "offset": 0, "init_only": false},
+    {"path": ["\\paddr"], "width": 32, "offset": 0, "init_only": false},
+    {"path": ["\\pclk"], "width": 1, "offset": 0, "init_only": false},
+    {"path": ["\\penable"], "width": 1, "offset": 0, "init_only": false},
+    {"path": ["\\prstn"], "width": 1, "offset": 0, "init_only": false},
+    {"path": ["\\psel"], "width": 1, "offset": 0, "init_only": false},
+    {"path": ["\\pwdata"], "width": 32, "offset": 0, "init_only": false},
+    {"path": ["\\pwrite"], "width": 1, "offset": 0, "init_only": false},
+    {"path": ["\\_witness_", "\\anyinit_procdff_263"], "width": 1, "offset": 0, "init_only": true},
+    {"path": ["\\_witness_", "\\anyinit_procdff_264"], "width": 1, "offset": 0, "init_only": true},
+    {"path": ["\\_witness_", "\\anyinit_procdff_265"], "width": 1, "offset": 0, "init_only": true},
+    {"path": ["\\_witness_", "\\anyinit_procdff_266"], "width": 32, "offset": 0, "init_only": true},
+    {"path": ["\\_witness_", "\\anyinit_procdff_267"], "width": 1, "offset": 0, "init_only": true},
+    {"path": ["\\_witness_", "\\anyinit_procdff_268"], "width": 32, "offset": 0, "init_only": true},
+    {"path": ["\\dut", "\\_witness_", "\\anyinit_procdff_258"], "width": 1, "offset": 0, "init_only": true}
+  ],
+  "steps": [
+    {"bits": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"},
+    {"bits": "0000000000000000000000000000000001100000000000000000000000000000000000000000000000000000000000000000000"},
+    {"bits": "0111111111111111111111111111111111110000000000000001111111111111111000000000000000000000000000000000000"},
+    {"bits": "0111111111111111111111111111111111110000000000000001111111111111111000000000000000000000000000000000001"},
+    {"bits": "0111111111111111111111111111111111110000000000000001111111111111111000000000000000000000000000000000000"},
+    {"bits": "0111111111111111111111111111111111110000000000000001111111111111111001000000000000000000000000000000001"},
+    {"bits": "0111111111111111111111111111111111100000000000000001111111111111111000000000000000000000000000000000001"}
+  ]
+}

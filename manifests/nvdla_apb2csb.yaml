@@ -1,0 +1,56 @@
+schema_version: "1.0"
+benchmark:
+  id: nvdla_apb2csb
+  display_name: NVDLA APB-to-CSB bridge
+  license: NVIDIA Open NVDLA License and Agreement v1.0
+upstream:
+  repository: https://github.com/nvdla/hw.git
+  ref: nvdlav1
+  commit: 8e06b1b9d85aab65b40d43d08eec5ea4681ff715
+  license_path: third_party/nvdla/LICENSE
+  license_sha256: 0f232029d97359752ac8a67f20e5fd6a703bb3af80f812ebff927a059a84cccb
+rtl:
+  top: NV_NVDLA_apb2csb
+  sources:
+    - path: third_party/nvdla/vmod/nvdla/apb2csb/NV_NVDLA_apb2csb.v
+      sha256: 7b82c8b364ce06b451d2893f9271f67006513daae46ef7fcc1fd473a1abf0e3d
+  parameters: {}
+clock:
+  signal: pclk
+  period_ns: 10
+reset:
+  signal: prstn
+  active_level: 0
+  asynchronous: true
+  minimum_cycles: 2
+ports:
+  inputs:
+    pclk: 1
+    prstn: 1
+    csb2nvdla_ready: 1
+    nvdla2csb_data: 32
+    nvdla2csb_valid: 1
+    paddr: 32
+    penable: 1
+    psel: 1
+    pwdata: 32
+    pwrite: 1
+  outputs:
+    csb2nvdla_addr: 16
+    csb2nvdla_nposted: 1
+    csb2nvdla_valid: 1
+    csb2nvdla_wdat: 32
+    csb2nvdla_write: 1
+    prdata: 32
+    pready: 1
+generated_signals:
+  - pclk
+  - prstn
+formal:
+  mode: cover
+  depth: 32
+  timeout_seconds: 60
+  engine: smtbmc boolector
+targets:
+  - id: delayed_read_roundtrip_v1
+    specification: targets/nvdla_apb2csb/delayed_read_roundtrip_v1.yaml

@@ -1,0 +1,30 @@
+{
+  "benchmark_id": "nvdla_apb2csb",
+  "coverage": {
+    "coverage_sha256": "5c8b9194f3c5999884886f69cb599aa7b4cf54f2e246674888fb4ec79d31e18b",
+    "metrics": {
+      "branch": {
+        "covered": 3,
+        "percent": 75.0,
+        "total": 4
+      },
+      "line": {
+        "covered": 1,
+        "percent": 50.0,
+        "total": 2
+      },
+      "toggle": {
+        "covered": 64,
+        "percent": 16.84,
+        "total": 380
+      }
+    },
+    "source": "baseline_coverage.dat"
+  },
+  "kind": "baseline",
+  "schema_version": "1.0",
+  "target": {
+    "hit": false,
+    "id": "delayed_read_roundtrip_v1"
+  }
+}

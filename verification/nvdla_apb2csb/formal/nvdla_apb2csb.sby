@@ -1,0 +1,22 @@
+[tasks]
+cover
+safety
+
+[options]
+cover: mode cover
+cover: depth 32
+cover: expect pass
+safety: mode bmc
+safety: depth 32
+safety: expect pass
+
+[engines]
+smtbmc boolector
+
+[script]
+read -formal -sv NV_NVDLA_apb2csb.v formal_top.sv
+prep -top formal_top
+
+[files]
+../../../third_party/nvdla/vmod/nvdla/apb2csb/NV_NVDLA_apb2csb.v
+formal_top.sv

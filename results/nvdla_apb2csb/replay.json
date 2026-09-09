@@ -1,0 +1,30 @@
+{
+  "benchmark_id": "nvdla_apb2csb",
+  "coverage": {
+    "coverage_sha256": "2206e97132124eb554d2034a8775ed8af18357a30cf9800d108df05917429597",
+    "metrics": {
+      "branch": {
+        "covered": 4,
+        "percent": 100.0,
+        "total": 4
+      },
+      "line": {
+        "covered": 2,
+        "percent": 100.0,
+        "total": 2
+      },
+      "toggle": {
+        "covered": 114,
+        "percent": 30.0,
+        "total": 380
+      }
+    },
+    "source": "replay_coverage.dat"
+  },
+  "kind": "replay",
+  "schema_version": "1.0",
+  "target": {
+    "hit": true,
+    "id": "delayed_read_roundtrip_v1"
+  }
+}
