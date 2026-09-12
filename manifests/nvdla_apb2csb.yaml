@@ -54,3 +54,80 @@ formal:
 targets:
   - id: delayed_read_roundtrip_v1
     specification: targets/nvdla_apb2csb/delayed_read_roundtrip_v1.yaml
+pipeline:
+  cache_dir: .proof2stim/cache
+  run_record: results/nvdla_apb2csb/pipeline_run.json
+  run_history_dir: runs/nvdla_apb2csb
+  acceptance_result: results/nvdla_apb2csb/acceptance.json
+  chia_run_record: results/nvdla_apb2csb/chia_run.json
+  versions_file: versions.lock
+  simulation_seed: 1
+  preflight:
+    - [make, doctor-strict]
+  stages:
+    - id: baseline
+      command: [make, baseline]
+      inputs:
+        - manifests/nvdla_apb2csb.yaml
+        - versions.lock
+        - third_party/nvdla/vmod/nvdla/apb2csb/NV_NVDLA_apb2csb.v
+        - verification/nvdla_apb2csb/cocotb/Makefile
+        - verification/nvdla_apb2csb/cocotb/test_baseline.py
+        - proof2stim/coverage/verilator.py
+        - scripts/summarize_coverage.py
+      outputs:
+        - results/nvdla_apb2csb/baseline.json
+    - id: formal
+      command: [make, formal]
+      inputs:
+        - manifests/nvdla_apb2csb.yaml
+        - versions.lock
+        - targets/nvdla_apb2csb/delayed_read_roundtrip_v1.yaml
+        - third_party/nvdla/vmod/nvdla/apb2csb/NV_NVDLA_apb2csb.v
+        - verification/nvdla_apb2csb/formal/formal_top.sv
+        - verification/nvdla_apb2csb/formal/nvdla_apb2csb.sby
+      outputs:
+        - verification/nvdla_apb2csb/formal/nvdla_apb2csb_cover/status
+        - verification/nvdla_apb2csb/formal/nvdla_apb2csb_cover/engine_0/trace0.yw
+        - verification/nvdla_apb2csb/formal/nvdla_apb2csb_safety/status
+    - id: normalize
+      command: [make, normalize-witness-action]
+      inputs:
+        - manifests/nvdla_apb2csb.yaml
+        - targets/nvdla_apb2csb/delayed_read_roundtrip_v1.yaml
+        - schemas/stimulus-v1.schema.json
+        - verification/nvdla_apb2csb/formal/nvdla_apb2csb_cover/engine_0/trace0.yw
+        - proof2stim/manifest.py
+        - proof2stim/witness/yosys.py
+        - scripts/normalize_witness.py
+      outputs:
+        - results/nvdla_apb2csb/stimulus.json
+        - results/nvdla_apb2csb/formal_witness.yw
+    - id: replay
+      command: [make, replay-action]
+      inputs:
+        - manifests/nvdla_apb2csb.yaml
+        - results/nvdla_apb2csb/stimulus.json
+        - third_party/nvdla/vmod/nvdla/apb2csb/NV_NVDLA_apb2csb.v
+        - verification/nvdla_apb2csb/cocotb/Makefile
+        - verification/nvdla_apb2csb/cocotb/test_replay.py
+        - proof2stim/coverage/verilator.py
+        - proof2stim/replay/legality.py
+        - proof2stim/targets/nvdla_apb2csb.py
+        - scripts/summarize_coverage.py
+      outputs:
+        - results/nvdla_apb2csb/replay.json
+        - results/nvdla_apb2csb/replay_checks.json
+    - id: acceptance
+      command: [make, acceptance-action]
+      inputs:
+        - results/nvdla_apb2csb/baseline.json
+        - results/nvdla_apb2csb/replay.json
+        - results/nvdla_apb2csb/replay_checks.json
+        - results/nvdla_apb2csb/stimulus.json
+        - results/nvdla_apb2csb/formal_witness.yw
+        - verification/nvdla_apb2csb/formal/nvdla_apb2csb_cover/status
+        - verification/nvdla_apb2csb/formal/nvdla_apb2csb_safety/status
+        - scripts/summarize_acceptance.py
+      outputs:
+        - results/nvdla_apb2csb/acceptance.json

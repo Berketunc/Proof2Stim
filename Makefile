@@ -1,4 +1,4 @@
-.PHONY: bootstrap-tools doctor doctor-strict check test validate-manifest baseline formal-cover formal-safety formal normalize-witness replay acceptance vertical-slice
+.PHONY: bootstrap-tools doctor doctor-strict check test validate-manifest baseline formal-cover formal-safety formal normalize-witness normalize-witness-action replay replay-action acceptance acceptance-action pipeline chia-pipeline vertical-slice
 
 PYTHON ?= python3
 TOOL_ENV := $(CURDIR)/.tools/oss-cad-suite/environment
@@ -31,7 +31,9 @@ formal-safety:
 
 formal: formal-cover formal-safety
 
-normalize-witness: formal-cover
+normalize-witness: formal-cover normalize-witness-action
+
+normalize-witness-action:
 	$(PYTHON) scripts/normalize_witness.py \
 		verification/nvdla_apb2csb/formal/nvdla_apb2csb_cover/engine_0/trace0.yw \
 		--manifest manifests/nvdla_apb2csb.yaml \
@@ -41,10 +43,14 @@ normalize-witness: formal-cover
 		--output results/nvdla_apb2csb/stimulus.json \
 		--witness-copy results/nvdla_apb2csb/formal_witness.yw
 
-replay: normalize-witness
+replay: normalize-witness replay-action
+
+replay-action:
 	bash -lc 'source "$(TOOL_ENV)" && $(MAKE) -C verification/nvdla_apb2csb/cocotb coverage RUN_KIND=replay TEST_MODULE=test_replay TARGET_HIT=1'
 
-acceptance: baseline formal-safety replay
+acceptance: baseline formal-safety replay acceptance-action
+
+acceptance-action:
 	$(PYTHON) scripts/summarize_acceptance.py \
 		--baseline results/nvdla_apb2csb/baseline.json \
 		--replay results/nvdla_apb2csb/replay.json \
@@ -54,6 +60,12 @@ acceptance: baseline formal-safety replay
 		--cover-status verification/nvdla_apb2csb/formal/nvdla_apb2csb_cover/status \
 		--safety-status verification/nvdla_apb2csb/formal/nvdla_apb2csb_safety/status \
 		--output results/nvdla_apb2csb/acceptance.json
+
+pipeline:
+	$(PYTHON) -m proof2stim run --manifest manifests/nvdla_apb2csb.yaml
+
+chia-pipeline:
+	$(PYTHON) scripts/run_chia_pipeline.py
 
 vertical-slice:
 	$(MAKE) doctor-strict

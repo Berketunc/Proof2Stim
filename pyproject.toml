@@ -20,8 +20,12 @@ dev = [
   "pytest>=8.3,<9",
   "ruff>=0.9,<1",
 ]
+chia = [
+  "chialoops @ git+https://github.com/ucb-bar/chia.git@a2c4dae46528055efa59444d54832336851f633f",
+]
 
 [project.scripts]
+proof2stim = "proof2stim.cli:main"
 proof2stim-doctor = "proof2stim.doctor:main"
 proof2stim-validate-manifest = "proof2stim.manifest:main"
 

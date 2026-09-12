@@ -26,3 +26,7 @@ symbiyosys=0.68
 boolector=3.2.4
 cocotb=2.1.0.dev0+41564633
 iverilog=14.0-devel-s20260301-394-g9edaf7b6a
+
+[orchestration]
+chialoops=1.0.1
+ray=2.54.0

@@ -17,6 +17,9 @@ delayed APB-read round trip. The detailed goals and acceptance criteria live in
   stimulus replays legally on the original RTL and independently hits the target.
 - Bounded safety passes to depth 32, and two complete regenerations produced the
   same normalized stimulus and replay-result hashes.
+- The five deterministic stages also pass as profiled CHIA nodes. Baseline
+  coverage and formal solving run concurrently before witness conversion,
+  replay, and the terminal acceptance gate.
 - NVDLA is pinned to commit `8e06b1b9d85aab65b40d43d08eec5ea4681ff715`.
 - CHIA is pinned to commit `a2c4dae46528055efa59444d54832336851f633f`.
 
@@ -37,6 +40,7 @@ machine. The machine-readable verdict is in
 ```bash
 make bootstrap-tools
 make vertical-slice
+make pipeline
 ```
 
 `make bootstrap-tools` installs the checksum-pinned Linux x86_64 OSS CAD Suite
@@ -48,6 +52,26 @@ the witness, replays it with cocotb, measures coverage, and writes the final ver
 Use `make doctor` to inspect dependencies without failing, or `make doctor-strict`
 to require the complete toolchain. The Python-only checks run with `make check`.
 
+`make pipeline` runs the same verified stages through the manifest-declared
+orchestrator. Its first invocation populates the content-addressed cache; unchanged
+repeats restore all five stages without relaunching formal or simulation. The
+observed pipeline times were 5.58 seconds cold and 0.60 seconds cached. Use
+`python3 -m proof2stim run --manifest manifests/nvdla_apb2csb.yaml --no-cache`
+to deliberately execute every stage.
+
+To run the same graph through the pinned CHIA/Ray integration:
+
+```bash
+uv sync --extra dev --extra chia
+make chia-pipeline PYTHON=.venv/bin/python
+```
+
+The local driver starts Ray with two Proof2Stim resource slots and enables CHIA
+profiling under the ignored `runs/chia-profiles/` directory. Nodes communicate
+through declared artifacts in the shared project workspace, so remote Ray workers
+must mount the repository at the same path. Pass `--address` directly to
+`scripts/run_chia_pipeline.py` when using an existing Ray cluster.
+
 ## Produced evidence
 
 - `results/nvdla_apb2csb/stimulus.json`: normalized six-cycle formal stimulus.
@@ -58,6 +82,10 @@ to require the complete toolchain. The Python-only checks run with `make check`.
   coverage summaries.
 - `results/nvdla_apb2csb/acceptance.json`: combined binary acceptance decision,
   coverage deltas, and artifact hashes.
+- `results/nvdla_apb2csb/pipeline_run.json`: latest stage-level cache, provenance,
+  runtime, toolchain, Git-state, model-usage, and cost record.
+- `results/nvdla_apb2csb/chia_run.json`: pinned CHIA/Ray versions, graph timing,
+  per-node input/output hashes, acceptance hash, and model-cost record.
 
 ## Design rules
 

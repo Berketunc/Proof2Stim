@@ -1,0 +1,191 @@
+{
+  "accepted": true,
+  "benchmark_id": "nvdla_apb2csb",
+  "cache_enabled": true,
+  "configuration": {
+    "formal": {
+      "depth": 32,
+      "engine": "smtbmc boolector",
+      "mode": "cover",
+      "timeout_seconds": 60
+    },
+    "simulation_seed": 1,
+    "versions_file": "versions.lock",
+    "versions_sha256": "7ea164c21cac9a3451f9bbdf06368b6e89a7f4130b75fb836d4ea2aad9e417b9"
+  },
+  "duration_seconds": 0.608355,
+  "environment": {
+    "machine": "x86_64",
+    "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.39",
+    "python": "3.11.15"
+  },
+  "estimated_model_cost_usd": 0.0,
+  "exit_status": 0,
+  "finished_utc": "2026-09-12T10:35:54.921002+00:00",
+  "git": {
+    "commit": "2bfdb8dfd23804d494d256cb89b67848d2a6d451",
+    "dirty": true
+  },
+  "model_usage": [],
+  "preflight": [
+    {
+      "command": [
+        "make",
+        "doctor-strict"
+      ],
+      "duration_seconds": 0.586089,
+      "returncode": 0
+    }
+  ],
+  "run_id": "nvdla_apb2csb-20260912T103554Z-a1be37a9",
+  "schema_version": "1.0",
+  "stages": [
+    {
+      "cache_hit": true,
+      "cache_key": "7d17b36d20c6d4962b8b653b3cd981ab5b6e4a5c1054e6d7eeace2efcb195b7b",
+      "command": [
+        "make",
+        "baseline"
+      ],
+      "duration_seconds": 0.002954,
+      "id": "baseline",
+      "inputs": {
+        "manifests/nvdla_apb2csb.yaml": "d830c4615bfe6ee49273de652dc95b2825691ca340a28ca70043d26524182506",
+        "proof2stim/coverage/verilator.py": "736bd4b30fe1b879faf40da2cc0cb77c0555d057c3854ade1d32056516851639",
+        "scripts/summarize_coverage.py": "ca7eaca2452f12bebd6cbf601cba56280e87a322859c05a893e2132134834265",
+        "third_party/nvdla/vmod/nvdla/apb2csb/NV_NVDLA_apb2csb.v": "7b82c8b364ce06b451d2893f9271f67006513daae46ef7fcc1fd473a1abf0e3d",
+        "verification/nvdla_apb2csb/cocotb/Makefile": "62a57e56db5e12a1a27fd2233c926b0ddfd9375e024c451d27f00181ce662408",
+        "verification/nvdla_apb2csb/cocotb/test_baseline.py": "33ef0da07f68506dd91ef8356b818aa8dc2cfa51b7846b90f25ec3466857eca8",
+        "versions.lock": "7ea164c21cac9a3451f9bbdf06368b6e89a7f4130b75fb836d4ea2aad9e417b9"
+      },
+      "outputs": {
+        "results/nvdla_apb2csb/baseline.json": "134a6eacdaff205d3fb8017062d4af4071c2f764a215b89ef1937f4004cccc4e"
+      },
+      "returncode": null,
+      "status": "passed"
+    },
+    {
+      "cache_hit": true,
+      "cache_key": "b3b225edb4fadec2510c7fa7fb2b46aa824fa46994f12b2e69fea5de92419c8f",
+      "command": [
+        "make",
+        "formal"
+      ],
+      "duration_seconds": 0.004016,
+      "id": "formal",
+      "inputs": {
+        "manifests/nvdla_apb2csb.yaml": "d830c4615bfe6ee49273de652dc95b2825691ca340a28ca70043d26524182506",
+        "targets/nvdla_apb2csb/delayed_read_roundtrip_v1.yaml": "ec45ec0abf5ccc18c3fb12c6249e79034ded7ca9761313836f05fea80504c6ed",
+        "third_party/nvdla/vmod/nvdla/apb2csb/NV_NVDLA_apb2csb.v": "7b82c8b364ce06b451d2893f9271f67006513daae46ef7fcc1fd473a1abf0e3d",
+        "verification/nvdla_apb2csb/formal/formal_top.sv": "0e51eb28cd30845882944aa605f8ca64b790725dd5a3a4c04b7c3e7b5a134043",
+        "verification/nvdla_apb2csb/formal/nvdla_apb2csb.sby": "521d862884b46966d25c13e65af4d78e8131d41e138727d44e49316818f46ef8",
+        "versions.lock": "7ea164c21cac9a3451f9bbdf06368b6e89a7f4130b75fb836d4ea2aad9e417b9"
+      },
+      "outputs": {
+        "verification/nvdla_apb2csb/formal/nvdla_apb2csb_cover/engine_0/trace0.yw": "b3f8da8472d026ee5f7d2cac6db1cf1ab0ff431cb3bf1f383c376f322707468d",
+        "verification/nvdla_apb2csb/formal/nvdla_apb2csb_cover/status": "4d489b9bfaac73d73a64a4023bf4d947ca1d4216d9f72864c97bfb6a2bc07d56",
+        "verification/nvdla_apb2csb/formal/nvdla_apb2csb_safety/status": "82bc437cdb0ebaedde9abc25a1795f5b1cd22d37f1e4d1240fd300e529561df4"
+      },
+      "returncode": null,
+      "status": "passed"
+    },
+    {
+      "cache_hit": true,
+      "cache_key": "11767d00ba408e9621e9b3d274d860a305cd8025ed4719ab6056e9c1a8d8acf2",
+      "command": [
+        "make",
+        "normalize-witness-action"
+      ],
+      "duration_seconds": 0.002703,
+      "id": "normalize",
+      "inputs": {
+        "manifests/nvdla_apb2csb.yaml": "d830c4615bfe6ee49273de652dc95b2825691ca340a28ca70043d26524182506",
+        "proof2stim/manifest.py": "21ca72c3a69578af8617833b1943561a5562259d778d2d696937a84de72af7c1",
+        "proof2stim/witness/yosys.py": "47ff158ec73dc6d367b338e4275829504a41ab92422bef5ed2c8a37696a50e67",
+        "schemas/stimulus-v1.schema.json": "27d3c5e86cee8305550bde14b930e15f3f55e9fd9c033934e2de2051df84921d",
+        "scripts/normalize_witness.py": "792d8984d6feeb8b299cd7174c723478138e27d13c9b6cbf92465c51d7c0a7ad",
+        "targets/nvdla_apb2csb/delayed_read_roundtrip_v1.yaml": "ec45ec0abf5ccc18c3fb12c6249e79034ded7ca9761313836f05fea80504c6ed",
+        "verification/nvdla_apb2csb/formal/nvdla_apb2csb_cover/engine_0/trace0.yw": "b3f8da8472d026ee5f7d2cac6db1cf1ab0ff431cb3bf1f383c376f322707468d"
+      },
+      "outputs": {
+        "results/nvdla_apb2csb/formal_witness.yw": "b3f8da8472d026ee5f7d2cac6db1cf1ab0ff431cb3bf1f383c376f322707468d",
+        "results/nvdla_apb2csb/stimulus.json": "607a362d90573c3b18f589c85bd5e601a7c4933e5a05bb9f97bd437352711871"
+      },
+      "returncode": null,
+      "status": "passed"
+    },
+    {
+      "cache_hit": true,
+      "cache_key": "db8247a70f32a07e8300275fa233914962e9007ff8d634b7b554516a3a706c6c",
+      "command": [
+        "make",
+        "replay-action"
+      ],
+      "duration_seconds": 0.00167,
+      "id": "replay",
+      "inputs": {
+        "manifests/nvdla_apb2csb.yaml": "d830c4615bfe6ee49273de652dc95b2825691ca340a28ca70043d26524182506",
+        "proof2stim/coverage/verilator.py": "736bd4b30fe1b879faf40da2cc0cb77c0555d057c3854ade1d32056516851639",
+        "proof2stim/replay/legality.py": "56cc4bcab103efc3411d87b777983a845d85397d0cbbcbfe708cac34bbb56fd6",
+        "proof2stim/targets/nvdla_apb2csb.py": "9eb07c5de6df68365d25a567d7e762804d2c52b59a676be43699c67e33789ed1",
+        "results/nvdla_apb2csb/stimulus.json": "607a362d90573c3b18f589c85bd5e601a7c4933e5a05bb9f97bd437352711871",
+        "scripts/summarize_coverage.py": "ca7eaca2452f12bebd6cbf601cba56280e87a322859c05a893e2132134834265",
+        "third_party/nvdla/vmod/nvdla/apb2csb/NV_NVDLA_apb2csb.v": "7b82c8b364ce06b451d2893f9271f67006513daae46ef7fcc1fd473a1abf0e3d",
+        "verification/nvdla_apb2csb/cocotb/Makefile": "62a57e56db5e12a1a27fd2233c926b0ddfd9375e024c451d27f00181ce662408",
+        "verification/nvdla_apb2csb/cocotb/test_replay.py": "c35ef06b89567ff08966f7b66f03c1b87258330714766620da72a31c023d3173"
+      },
+      "outputs": {
+        "results/nvdla_apb2csb/replay.json": "153a1f7d53fd6a675274ddf8230566b67e823549cdd509f65c6ec97420e772bb",
+        "results/nvdla_apb2csb/replay_checks.json": "9ffe999a3e805536b09ab925f3d078a99b95c57d6e680026cf9762a589b65275"
+      },
+      "returncode": null,
+      "status": "passed"
+    },
+    {
+      "cache_hit": true,
+      "cache_key": "180883730f6225d15cb5863c671c84456870db29cc73baf083d000decd5b9054",
+      "command": [
+        "make",
+        "acceptance-action"
+      ],
+      "duration_seconds": 0.001016,
+      "id": "acceptance",
+      "inputs": {
+        "results/nvdla_apb2csb/baseline.json": "134a6eacdaff205d3fb8017062d4af4071c2f764a215b89ef1937f4004cccc4e",
+        "results/nvdla_apb2csb/formal_witness.yw": "b3f8da8472d026ee5f7d2cac6db1cf1ab0ff431cb3bf1f383c376f322707468d",
+        "results/nvdla_apb2csb/replay.json": "153a1f7d53fd6a675274ddf8230566b67e823549cdd509f65c6ec97420e772bb",
+        "results/nvdla_apb2csb/replay_checks.json": "9ffe999a3e805536b09ab925f3d078a99b95c57d6e680026cf9762a589b65275",
+        "results/nvdla_apb2csb/stimulus.json": "607a362d90573c3b18f589c85bd5e601a7c4933e5a05bb9f97bd437352711871",
+        "scripts/summarize_acceptance.py": "f3a3a2616b1f997996e92294c3bf06c5c48d3a20abd9f4f75045eae251d95022",
+        "verification/nvdla_apb2csb/formal/nvdla_apb2csb_cover/status": "4d489b9bfaac73d73a64a4023bf4d947ca1d4216d9f72864c97bfb6a2bc07d56",
+        "verification/nvdla_apb2csb/formal/nvdla_apb2csb_safety/status": "82bc437cdb0ebaedde9abc25a1795f5b1cd22d37f1e4d1240fd300e529561df4"
+      },
+      "outputs": {
+        "results/nvdla_apb2csb/acceptance.json": "bac8965e9f8b190315dee54f051055ebd163dc765585e9566fe676ec3fd7d7dd"
+      },
+      "returncode": null,
+      "status": "passed"
+    }
+  ],
+  "started_utc": "2026-09-12T10:35:54.312638+00:00",
+  "status": "passed",
+  "target_id": "delayed_read_roundtrip_v1",
+  "target_specification": {
+    "path": "targets/nvdla_apb2csb/delayed_read_roundtrip_v1.yaml",
+    "sha256": "ec45ec0abf5ccc18c3fb12c6249e79034ded7ca9761313836f05fea80504c6ed"
+  },
+  "upstream": {
+    "commit": "8e06b1b9d85aab65b40d43d08eec5ea4681ff715",
+    "license": "NVIDIA Open NVDLA License and Agreement v1.0",
+    "license_path": "third_party/nvdla/LICENSE",
+    "license_sha256": "0f232029d97359752ac8a67f20e5fd6a703bb3af80f812ebff927a059a84cccb",
+    "ref": "nvdlav1",
+    "repository": "https://github.com/nvdla/hw.git",
+    "sources": [
+      {
+        "path": "third_party/nvdla/vmod/nvdla/apb2csb/NV_NVDLA_apb2csb.v",
+        "sha256": "7b82c8b364ce06b451d2893f9271f67006513daae46ef7fcc1fd473a1abf0e3d"
+      }
+    ]
+  }
+}
