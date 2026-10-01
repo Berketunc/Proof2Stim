@@ -2,3 +2,4 @@ date,run_id,provider,service,model_or_machine,region,runtime,input_tokens,output
 2026-09-09,nvdla-cached-pipeline-0001,local,verification,linux-x86_64-local,local,5.58s,0,0,0.00,0.00,0.00,"Cold five-stage pipeline; no model or cloud usage"
 2026-09-09,nvdla-cached-pipeline-0001-repeat,local,verification-cache,linux-x86_64-local,local,0.60s,0,0,0.00,0.00,0.00,"Five of five content-addressed cache hits"
 2026-09-12,nvdla-chia-graph-0002,local,chia-ray,linux-x86_64-local,local,4.33s,0,0,0.00,0.00,0.00,"Five-node CHIA graph; baseline and formal dispatched concurrently; excludes Ray startup"
+2026-09-13,gemini-request-dry-run-0003,local,prompt-validation,no-model,local,<1s,0,0,0.00,0.00,0.00,"Prepared 3705-token-estimate request and validated SDK config; no provider call"

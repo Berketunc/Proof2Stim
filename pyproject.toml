@@ -23,6 +23,9 @@ dev = [
 chia = [
   "chialoops @ git+https://github.com/ucb-bar/chia.git@a2c4dae46528055efa59444d54832336851f633f",
 ]
+gemini = [
+  "google-genai>=1.0,<2",
+]
 
 [project.scripts]
 proof2stim = "proof2stim.cli:main"

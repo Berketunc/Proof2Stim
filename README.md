@@ -20,6 +20,9 @@ delayed APB-read round trip. The detailed goals and acceptance criteria live in
 - The five deterministic stages also pass as profiled CHIA nodes. Baseline
   coverage and formal solving run concurrently before witness conversion,
   replay, and the terminal acceptance gate.
+- Gemini target/harness assistance is prepared behind a strict JSON contract,
+  repository-aware validation, and an explicit pre-call cost guard. No paid model
+  call has been made.
 - NVDLA is pinned to commit `8e06b1b9d85aab65b40d43d08eec5ea4681ff715`.
 - CHIA is pinned to commit `a2c4dae46528055efa59444d54832336851f633f`.
 
@@ -72,6 +75,20 @@ through declared artifacts in the shared project workspace, so remote Ray worker
 must mount the repository at the same path. Pass `--address` directly to
 `scripts/run_chia_pipeline.py` when using an existing Ray cluster.
 
+Prepare the pinned Gemini request without credentials or provider access:
+
+```bash
+uv sync --extra dev --extra gemini
+make prepare-gemini PYTHON=.venv/bin/python
+```
+
+The command writes an ignored request under `runs/`, prints its prompt hash and
+token estimates, and explicitly reports that no model call occurred. The paid
+Vertex command has no default project, model, pricing, or budget: all must be
+provided, and it refuses to proceed without `--confirm-paid-call`. See
+[`docs/gemini-vertex-runbook.md`](docs/gemini-vertex-runbook.md) for the credential
+handoff and invocation checklist.
+
 ## Produced evidence
 
 - `results/nvdla_apb2csb/stimulus.json`: normalized six-cycle formal stimulus.
@@ -95,6 +112,8 @@ must mount the repository at the same path. Pass `--address` directly to
   reset waveforms.
 - Unknown witness bits retain a known-bit mask and are zero-filled deterministically.
 - A trace is accepted only after legality, semantic-target, data, and coverage checks.
+- Model output is an untrusted proposal. It cannot modify RTL, harnesses, target
+  specifications, or acceptance artifacts without review and tool validation.
 - Bounded misses and timeouts are unresolved outcomes, not unreachability proofs.
 
 ## Repository map

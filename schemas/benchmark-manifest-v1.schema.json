@@ -4,7 +4,7 @@
   "title": "Proof2Stim benchmark manifest",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "benchmark", "upstream", "rtl", "clock", "reset", "ports", "generated_signals", "formal", "targets"],
+  "required": ["schema_version", "benchmark", "upstream", "rtl", "clock", "reset", "ports", "generated_signals", "formal", "targets", "assistance", "pipeline"],
   "properties": {
     "schema_version": {"const": "1.0"},
     "benchmark": {
@@ -97,6 +97,9 @@
         }
       }
     },
+    "assistance": {
+      "$ref": "#/$defs/assistance"
+    },
     "pipeline": {
       "$ref": "#/$defs/pipeline"
     }
@@ -115,6 +118,56 @@
       "type": "object",
       "minProperties": 1,
       "additionalProperties": {"type": "integer", "minimum": 1}
+    },
+    "assistance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "task", "prompt", "response_schema", "generation_config", "provider_controls"],
+      "properties": {
+        "provider": {"const": "google-vertex-ai"},
+        "task": {"const": "target_harness_proposal"},
+        "prompt": {"$ref": "#/$defs/versionedArtifact"},
+        "response_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "sha256"],
+          "properties": {
+            "path": {"type": "string", "minLength": 1},
+            "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          }
+        },
+        "generation_config": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["temperature", "top_p", "max_output_tokens", "response_mime_type"],
+          "properties": {
+            "temperature": {"type": "number", "minimum": 0, "maximum": 2},
+            "top_p": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+            "max_output_tokens": {"type": "integer", "minimum": 1, "maximum": 65536},
+            "response_mime_type": {"const": "application/json"}
+          }
+        },
+        "provider_controls": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["api_version", "timeout_seconds", "max_attempts"],
+          "properties": {
+            "api_version": {"const": "v1"},
+            "timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 600},
+            "max_attempts": {"const": 1}
+          }
+        }
+      }
+    },
+    "versionedArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "path", "sha256"],
+      "properties": {
+        "version": {"const": "target-harness-v1"},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
     },
     "pipeline": {
       "type": "object",

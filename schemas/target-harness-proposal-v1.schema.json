@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://proof2stim.dev/schemas/target-harness-proposal-v1.schema.json",
+  "title": "Untrusted target and formal-harness proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "benchmark_id",
+    "requested_target_id",
+    "executive_summary",
+    "rtl_evidence",
+    "candidate_targets",
+    "harness",
+    "final_acceptance"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "benchmark_id": {"$ref": "#/$defs/id"},
+    "requested_target_id": {"$ref": "#/$defs/id"},
+    "executive_summary": {"type": "string", "minLength": 1, "maxLength": 4000},
+    "rtl_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": {"$ref": "#/$defs/evidence"}
+    },
+    "candidate_targets": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "items": {"$ref": "#/$defs/target"}
+    },
+    "harness": {"$ref": "#/$defs/harness"},
+    "final_acceptance": {"const": "requires_tool_validation"}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$", "maxLength": 96},
+    "signalRefs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_$]*$"}
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_path", "start_line", "end_line", "observation"],
+      "properties": {
+        "source_path": {"type": "string", "minLength": 1},
+        "start_line": {"type": "integer", "minimum": 1},
+        "end_line": {"type": "integer", "minimum": 1},
+        "observation": {"type": "string", "minLength": 1, "maxLength": 2000}
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "baseline_gap", "rationale", "signal_refs", "event_sequence"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "description": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "baseline_gap": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "rationale": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "signal_refs": {"$ref": "#/$defs/signalRefs"},
+        "event_sequence": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "items": {"type": "string", "minLength": 1, "maxLength": 1000}
+        }
+      }
+    },
+    "property": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "signal_refs", "rationale"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "description": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "signal_refs": {"$ref": "#/$defs/signalRefs"},
+        "rationale": {"type": "string", "minLength": 1, "maxLength": 2000}
+      }
+    },
+    "assumption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "signal_refs", "rationale", "overconstraint_risk"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "description": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "signal_refs": {"$ref": "#/$defs/signalRefs"},
+        "rationale": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "overconstraint_risk": {"enum": ["low", "medium", "high"]}
+      }
+    },
+    "cover": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description", "signal_refs", "rationale"],
+      "properties": {
+        "description": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "signal_refs": {"$ref": "#/$defs/signalRefs"},
+        "rationale": {"type": "string", "minLength": 1, "maxLength": 2000}
+      }
+    },
+    "harness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assumptions", "assertions", "cover", "unknowns", "validation_steps"],
+      "properties": {
+        "assumptions": {
+          "type": "array",
+          "maxItems": 24,
+          "items": {"$ref": "#/$defs/assumption"}
+        },
+        "assertions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 24,
+          "items": {"$ref": "#/$defs/property"}
+        },
+        "cover": {"$ref": "#/$defs/cover"},
+        "unknowns": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {"type": "string", "minLength": 1, "maxLength": 1000}
+        },
+        "validation_steps": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {"type": "string", "minLength": 1, "maxLength": 1000}
+        }
+      }
+    }
+  }
+}

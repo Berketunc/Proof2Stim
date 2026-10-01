@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://proof2stim.dev/schemas/model-request-v1.schema.json",
+  "title": "Proof2Stim model request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "task", "prompt_version", "benchmark_id", "target_id", "manifest", "baseline", "created_utc", "prompt", "prompt_sha256", "estimated_input_tokens", "conservative_input_token_bound", "response_schema", "response_schema_sha256", "input_artifacts", "generation_config", "provider_controls"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "task": {"const": "target_harness_proposal"},
+    "prompt_version": {"const": "target-harness-v1"},
+    "benchmark_id": {"$ref": "#/$defs/id"},
+    "target_id": {"$ref": "#/$defs/id"},
+    "manifest": {"type": "string", "minLength": 1},
+    "baseline": {"type": "string", "minLength": 1},
+    "created_utc": {"type": "string", "format": "date-time"},
+    "prompt": {"type": "string", "minLength": 1},
+    "prompt_sha256": {"$ref": "#/$defs/sha256"},
+    "estimated_input_tokens": {"type": "integer", "minimum": 1},
+    "conservative_input_token_bound": {"type": "integer", "minimum": 1},
+    "response_schema": {"type": "string", "minLength": 1},
+    "response_schema_sha256": {"$ref": "#/$defs/sha256"},
+    "input_artifacts": {"$ref": "#/$defs/hashMap"},
+    "generation_config": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["temperature", "top_p", "max_output_tokens", "response_mime_type"],
+      "properties": {
+        "temperature": {"type": "number", "minimum": 0, "maximum": 2},
+        "top_p": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+        "max_output_tokens": {"type": "integer", "minimum": 1, "maximum": 65536},
+        "response_mime_type": {"const": "application/json"}
+      }
+    },
+    "provider_controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["api_version", "timeout_seconds", "max_attempts"],
+      "properties": {
+        "api_version": {"const": "v1"},
+        "timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 600},
+        "max_attempts": {"const": 1}
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "hashMap": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/sha256"}}
+  }
+}

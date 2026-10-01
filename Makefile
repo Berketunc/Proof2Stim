@@ -1,4 +1,4 @@
-.PHONY: bootstrap-tools doctor doctor-strict check test validate-manifest baseline formal-cover formal-safety formal normalize-witness normalize-witness-action replay replay-action acceptance acceptance-action pipeline chia-pipeline vertical-slice
+.PHONY: bootstrap-tools doctor doctor-strict check test validate-manifest baseline formal-cover formal-safety formal normalize-witness normalize-witness-action replay replay-action acceptance acceptance-action pipeline chia-pipeline prepare-gemini vertical-slice
 
 PYTHON ?= python3
 TOOL_ENV := $(CURDIR)/.tools/oss-cad-suite/environment
@@ -66,6 +66,9 @@ pipeline:
 
 chia-pipeline:
 	$(PYTHON) scripts/run_chia_pipeline.py
+
+prepare-gemini:
+	$(PYTHON) -m proof2stim prepare-gemini
 
 vertical-slice:
 	$(MAKE) doctor-strict

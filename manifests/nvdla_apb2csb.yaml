@@ -54,6 +54,25 @@ formal:
 targets:
   - id: delayed_read_roundtrip_v1
     specification: targets/nvdla_apb2csb/delayed_read_roundtrip_v1.yaml
+assistance:
+  provider: google-vertex-ai
+  task: target_harness_proposal
+  prompt:
+    version: target-harness-v1
+    path: prompts/gemini/target-harness-v1.md
+    sha256: a2829adc5f4bf9a99a202d530edc9b0a031d6e172ac424d920a2303e50c7eea5
+  response_schema:
+    path: schemas/target-harness-proposal-v1.schema.json
+    sha256: 118e39214f88966fbf5436bf10486d8fdc4638f076ad7a86a1b35b7f8732b542
+  generation_config:
+    temperature: 0.0
+    top_p: 0.95
+    max_output_tokens: 8192
+    response_mime_type: application/json
+  provider_controls:
+    api_version: v1
+    timeout_seconds: 120
+    max_attempts: 1
 pipeline:
   cache_dir: .proof2stim/cache
   run_record: results/nvdla_apb2csb/pipeline_run.json

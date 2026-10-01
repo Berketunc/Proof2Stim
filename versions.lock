@@ -30,3 +30,6 @@ iverilog=14.0-devel-s20260301-394-g9edaf7b6a
 [orchestration]
 chialoops=1.0.1
 ray=2.54.0
+
+[models]
+google_genai_sdk=1.75.0

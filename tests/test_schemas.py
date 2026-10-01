@@ -14,6 +14,7 @@ class SchemaTests(unittest.TestCase):
                 document = json.loads(path.read_text(encoding="utf-8"))
                 self.assertEqual(document["type"], "object")
                 self.assertIn("$schema", document)
+                jsonschema.Draft202012Validator.check_schema(document)
 
     def test_latest_pipeline_run_matches_schema(self) -> None:
         schema = json.loads(
